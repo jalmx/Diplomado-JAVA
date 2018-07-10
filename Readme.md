@@ -12,5 +12,5 @@ ___
 
 ### Contacto
 
-[Alejandro Leyva](https://alejandro-leyva.com)
-[Correo](contacto@alejandro-leyva.com)
+- [Alejandro Leyva](https://alejandro-leyva.com)
+- [Correo](contacto@alejandro-leyva.com)
