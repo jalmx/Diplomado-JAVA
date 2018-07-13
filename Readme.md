@@ -9,6 +9,10 @@
 - [Clase 1](https://github.com/jalmx89/Diplomado-JAVA/tree/master/clase1)
 
 ___
+## Bibliografía
+
+[Descargar](https://goo.gl/zoup9A)
+___
 
 ### Contacto
 
