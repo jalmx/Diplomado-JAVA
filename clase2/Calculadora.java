@@ -5,7 +5,7 @@ public class Calculadora {
     public static void main(String[] a) {
         Scanner leer = new Scanner(System.in);
 
-        System.out.println("Cual es tu sexo?\n1)Suma\n2)Resta\n3)Multiplicación\n4)División");
+        System.out.println("Qué operación deseas?\n1)Suma\n2)Resta\n3)Multiplicación\n4)División");
         int opcion = leer.nextInt();
 
         int resultado = 0;
@@ -19,7 +19,6 @@ public class Calculadora {
             resultado = valor1 + valor2;
             System.out.println("El resultado es " + resultado);
             break;
-
         case 2:
             resultado = valor1 - valor2;
             System.out.println("El resultado es " + resultado);

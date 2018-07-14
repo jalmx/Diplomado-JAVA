@@ -7,8 +7,7 @@ public class Ternario{
         System.out.println("Dar un valor");
         int valor = new Scanner(System.in).nextInt();
 
-        // int resultado = valor > 5 ? 10 : 0;
-        int resultado = resultado(valor);
+        int resultado = valor > 5 ? 10 : 0;
 
         String mensaje = valor > 5 ? "Es mayor" : "Es menor";
 

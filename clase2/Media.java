@@ -12,11 +12,11 @@ public class Media {
         for (int i = 0; i < total; i++) {
             System.out.printf("Dar el valor %d\n", i + 1);
             int valor = leer.nextInt();
-            suma += valor;
+            suma += valor;//sumando el valor + suma y lo guardo en suma
         }
 
-        double resultado = (double) suma / total;
+        double resultado = (double) suma / total;//obteniendo la media
 
-        System.out.println("La media es " + resultado);
+        System.out.printf("La media es %.3f", resultado);
     }
 }

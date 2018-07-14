@@ -4,7 +4,7 @@ public class TablaWhile{
         int tabla = 9; //el valor de la tabla
         int contador  = 1; //variable que me ayuda a saber en que valor voy
 
-        while(contador <= 10){
+        while(contador >= 10){
             
             int resultado = tabla * contador;
             
@@ -13,7 +13,7 @@ public class TablaWhile{
             contador++; //debo manejar la variable que será mi bandera que indica que debo salir
         }
 
-        int variable = 50;
+        int variable = 5;
 
         do{
             System.out.println("entro al do - while");
