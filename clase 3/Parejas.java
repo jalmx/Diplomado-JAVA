@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,7 +6,7 @@ public class Parejas{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Cuantas personas son?");
+        System.out.println("Cuantas parejas son?");
         int total = scanner.nextInt();
 
         String nombres[][] = new String[2][total];
@@ -22,7 +21,7 @@ public class Parejas{
         Random random = new Random();
 
         for (int i = 0; i < nombres[0].length; i++) {
-            System.out.printf("Las parejas son: %s con %s \n",
+            System.out.printf("Las parejas son: %s con %s  \n",
             nombres[0][random.nextInt(total)], nombres[1][random.nextInt(total)]);
         }
      }
