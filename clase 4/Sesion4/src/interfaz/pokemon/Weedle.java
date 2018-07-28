@@ -1,14 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package interfaz.pokemon;
 
-/**
- *
- * @author josef
- */
-public class Weedle  {
+public class Weedle extends Pokemon implements Bicho, Veneno {
+
+    public Weedle(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void arrastrarse() {
+        System.out.println("Ataque rápido");
+    }
+
+    @Override
+    public void envenenamiento() {
+        System.out.println("Mordida super venenosa");
+    }
     
 }

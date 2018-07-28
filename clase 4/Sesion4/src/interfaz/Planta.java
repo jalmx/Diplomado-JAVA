@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz.pokemon;
+package interfaz;
 
 /**
  *
  * @author josef
  */
-public interface Veneno {
-
-    void envenenamiento();
+public interface Planta {
+    
+    void lanzarSemillas();
     
 }

@@ -9,6 +9,16 @@ package interfaz;
  *
  * @author josef
  */
-public class Bulbasaur {
-    
+public class Bulbasaur implements Planta, Veneno {
+
+    @Override
+    public void lanzarSemillas() {
+        System.out.println("Lanza semillas");
+    }
+
+    @Override
+    public void envenenar() {
+        System.out.println("Lanza mordida venenosa");
+    }
+
 }

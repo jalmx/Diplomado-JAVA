@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaz.pokemon;
+package abstracto;
 
 /**
  *
  * @author josef
  */
-public interface Veneno {
-
-    void envenenamiento();
+public abstract class Mamifero extends Animal{
+    
+    public Mamifero(String nombre) {
+        super(nombre);
+    }
+    
+    abstract void comer(String comida);
     
 }

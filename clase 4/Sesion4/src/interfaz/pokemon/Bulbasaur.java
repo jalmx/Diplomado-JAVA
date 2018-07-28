@@ -9,6 +9,20 @@ package interfaz.pokemon;
  *
  * @author josef
  */
-public class Bulbasaur {
+public class Bulbasaur extends Pokemon implements Planta, Veneno{
+
+    public Bulbasaur(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void lanzarSemillas() {
+        System.out.println("Lanza semillas");
+    }
+
+    @Override
+    public void envenenamiento() {
+        System.out.println("Mordida venenosa");
+    }
     
 }

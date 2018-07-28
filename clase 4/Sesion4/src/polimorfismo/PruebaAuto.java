@@ -20,10 +20,22 @@ public class PruebaAuto {
         Auto vocho = new Vocho();
         Auto tsuru = new Tsuru();
         
+//        auto.mensaje();
+//        vocho.mensaje();
+//        tsuru.mensaje();
         
-        auto.mensaje();
-        vocho.mensaje();
-        tsuru.mensaje();
+        Auto[] autos = {auto, vocho, tsuru};
+        
+        for (int i = 0; i < autos.length; i++) {
+            autos[i].mensaje();
+        }
+        
+        Auto auto1 = new Vocho();
+        Auto auto2 = new Tsuru();
+        
+        auto1.mensaje();
+        auto2.mensaje();
+        
     }
     
 }
