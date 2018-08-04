@@ -5,11 +5,6 @@
  */
 package genericos;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-
 /**
  *
  * @author josef
@@ -20,16 +15,19 @@ public class TestPrintArrays {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        Double[] doubles = {4.5,6.3,8.6,9.2,7.9};
-        Integer[] enteros = {5,4,6,9,2,5,1};
-        Character[] caracteres = {'H','O','L','A'};
-        
+
+        Double[] doubles = {4.5, 6.3, 8.6, 9.2, 7.9};
+        Integer[] enteros = {5, 4, 6, 9, 2, 5, 1};
+        Character[] caracteres = {'H', 'O', 'L', 'A'};
+
         PrintArrays.printArray(doubles);
         PrintArrays.printArray(enteros);
         PrintArrays.printArray(caracteres);
-        PrintElement.print(doubles);
         
+        PrintElement.print(caracteres);
+        
+//PrintElement.print(doubles);
+
     }
-    
+
 }

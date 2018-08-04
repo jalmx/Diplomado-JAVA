@@ -11,9 +11,9 @@ package genericos;
  */
 public class PrintElement<E> {
     
-    private PrintElement(){
-        
+    private PrintElement(){  
     }
+    
     public static <E> void print(E[] elements){
         for (int i = 0; i < elements.length; i++) {
             System.out.printf("%s ", elements[i]);
