@@ -10,6 +10,8 @@ public class PruebaPokemon {
         bulbasaur.envenenamiento();
         weedle.envenenamiento();
         
+        Veneno[] venenosos = {bulbasaur, weedle};
+        Pokemon[] pokemons = {bulbasaur, weedle};
     }
     
 }
