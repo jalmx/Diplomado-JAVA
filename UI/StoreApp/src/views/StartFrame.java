@@ -136,7 +136,8 @@ public class StartFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonQuitActionPerformed
 
     private void buttonSingInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSingInActionPerformed
-        logIn();
+        new MainFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_buttonSingInActionPerformed
 
     private void fieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPasswordActionPerformed

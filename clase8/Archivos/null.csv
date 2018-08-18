@@ -1,0 +1,11 @@
+ String str = jTextArea1.getText();
+            file.renameTo(new File(file.getAbsolutePath() + ".csv"));
+            try {
+                file.createNewFile();
+                FileWriter write = new FileWriter(file);
+                write.write(str);
+                write.close();
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al crear archivo");
+            }
