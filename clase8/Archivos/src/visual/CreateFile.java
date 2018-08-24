@@ -9,14 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -100,11 +95,12 @@ public class CreateFile extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         //chooser.changeToParentDirectory();
         int answer = chooser.showOpenDialog(this);
-        File file = chooser.getSelectedFile();
 
         System.out.println("respuesta: " + answer);
         Scanner sc = null;
         if (answer == JFileChooser.APPROVE_OPTION) {
+
+            File file = chooser.getSelectedFile();
             try {
                 sc = new Scanner(file);
 
@@ -126,14 +122,14 @@ public class CreateFile extends javax.swing.JFrame {
     private void saveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileActionPerformed
         JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView());
         chooser.setFileFilter(new FileNameExtensionFilter("Guardar como csv", "csv"));
-        
+
         int answer = chooser.showSaveDialog(this);
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            File file =new File(chooser.getSelectedFile() + ".csv");    
-            
+            File file = new File(chooser.getSelectedFile() + ".csv");
+
             System.out.println(file.getName());
-            
+
             try {
                 String str = jTextArea1.getText();
                 FileWriter write = new FileWriter(file);
