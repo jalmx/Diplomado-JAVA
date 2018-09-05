@@ -9,18 +9,18 @@ package util;
  *
  * @author josef
  */
-public class User {
+public final class User {
     
-    private final String name;
+    private final String user;
     private final String password;
 
     public User(String name, String password) {
-        this.name = name;
+        this.user = name;
         this.password = password;
     }
 
     public String getName() {
-        return name;
+        return user;
     }
 
     public String getPassword() {

@@ -7,7 +7,7 @@ package views;
 
 import javax.swing.JOptionPane;
 import util.User;
-import util.Usuario;
+import util.DummyUser;
 
 /**
  *
@@ -42,6 +42,7 @@ public class StartFrame extends javax.swing.JFrame {
         fieldPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Iniciar Sesión");
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/store.png"))); // NOI18N
@@ -136,6 +137,7 @@ public class StartFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonQuitActionPerformed
 
     private void buttonSingInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSingInActionPerformed
+        //logIn();
         new MainFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_buttonSingInActionPerformed
@@ -146,19 +148,20 @@ public class StartFrame extends javax.swing.JFrame {
 
     private void logIn() {
         String user = fieldUser.getText();
-        String pass = String.valueOf(fieldPassword.getPassword());
+        char[] pass = fieldPassword.getPassword();
+        String password = String.valueOf(pass);
 
-        if (!user.isEmpty() || !pass.isEmpty()) {
-            if (Usuario.checkUser(new User(user, pass))) {
-                new MainFrame();
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrent access", "No user find", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (user.isEmpty() || null == user || pass == null || pass.isEmpty() ) {
-            JOptionPane.showMessageDialog(this, "Empty data", "Error data empty", JOptionPane.WARNING_MESSAGE);
+        if (DummyUser.checkUser(new User(user, password))) {
+            new MainFrame().setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error en el usuario o contraseña",
+                    "Error con usuario",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
     }
 
     /**

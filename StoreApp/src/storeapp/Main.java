@@ -5,6 +5,7 @@
  */
 package storeapp;
 
+import util.Product;
 import views.StartFrame;
 
 /**
