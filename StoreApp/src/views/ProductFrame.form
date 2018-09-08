@@ -244,11 +244,17 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Aceptar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAceptedActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonOption">
       <Properties>
         <Property name="text" type="java.lang.String" value="option"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOptionActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

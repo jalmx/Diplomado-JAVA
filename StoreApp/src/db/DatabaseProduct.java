@@ -8,6 +8,7 @@ package db;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,27 +16,19 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import util.Product;
 
-/**
- *
- * @author josef
- */
 public class DatabaseProduct extends DAOHandler<Product> {
 
     private static DatabaseProduct db = null;
     private Connection connection = null;
 
     private DatabaseProduct() {
-        if (!createConnection()) {
+        if (!createDB()) {
             throw new IllegalArgumentException("No se puedo crear la conexión");
         }
-        if(!openConnection()){
+        if (!openConnection()) {
             throw new IllegalArgumentException("No se puedo abrir la conexión");
         }
-        
-    }
-
-    private boolean createConnection() {
-        return createDB();
+        closeDB();
     }
 
     public static DatabaseProduct getInstanceDB() {
@@ -48,27 +41,109 @@ public class DatabaseProduct extends DAOHandler<Product> {
 
     @Override
     public void insert(Product e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (openConnection()) {
+                Statement st = connection.createStatement();
+                st.execute(Querys.queryInsert(e));
+                System.out.println("Se guardo el producto");
+                closeDB();
+            }
+        } catch (Exception o) {
+            o.printStackTrace();
+            System.out.println("Fallo guarda producto");
+        }
+
     }
 
     @Override
     public Product get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (openConnection()) {
+                Product p = null;
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery(Querys.queryRead(id));
+                while (rs.next()) {
+                    p = new Product(
+                            rs.getString(Querys.COLUMNS[1]),
+                            rs.getString(Querys.COLUMNS[2]),
+                            rs.getInt(Querys.COLUMNS[3]),
+                            rs.getString(Querys.COLUMNS[4]),
+                            rs.getInt(Querys.COLUMNS[5]),
+                            rs.getDouble(Querys.COLUMNS[6]),
+                            rs.getString(Querys.COLUMNS[7]),
+                            rs.getInt(Querys.COLUMNS[0])
+                    );
+                }
+                closeDB();
+                return p;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return null;
     }
 
     @Override
     public ArrayList<Product> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Product> products = null;
+        try {
+            if (openConnection()) {
+                products = new ArrayList<>();
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery(Querys.queryRead());
+
+                while (rs.next()) {
+                    products.add(new Product(
+                            rs.getString(Querys.COLUMNS[1]),
+                            rs.getString(Querys.COLUMNS[2]),
+                            rs.getInt(Querys.COLUMNS[3]),
+                            rs.getString(Querys.COLUMNS[4]),
+                            rs.getInt(Querys.COLUMNS[5]),
+                            rs.getDouble(Querys.COLUMNS[6]),
+                            rs.getString(Querys.COLUMNS[7]),
+                            rs.getInt(Querys.COLUMNS[0])
+                    )
+                    );
+                }
+                closeDB();
+                return products;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return products;
     }
 
     @Override
     public void update(Product e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (openConnection()) {
+                Statement st = connection.createStatement();
+                System.out.println("update");
+                System.out.println(e);
+                st.execute(Querys.queryUpdate(e));
+            }
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (openConnection()) {
+                Statement st = connection.createStatement();
+                st.execute(Querys.queryDelete(String.valueOf(id)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -78,14 +153,15 @@ public class DatabaseProduct extends DAOHandler<Product> {
                 connection.close();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Fallo al cerrar db","Error DB", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fallo al cerrar db",
+                    "Error DB", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     private boolean openConnection() {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:products.db");
+            connection = DriverManager.
+                    getConnection("jdbc:sqlite:" + Querys.NAME_DB);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -94,13 +170,13 @@ public class DatabaseProduct extends DAOHandler<Product> {
     }
 
     private boolean createDB() {
-        File db = new File("products.db");
+        File db = new File(Querys.NAME_DB);
         try {
             if (!db.exists()) {
                 openConnection();
-                String sqlCrearTabla = "CREATE TABLE 'libros' ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, cantidad INTEGER) ";
+                String sqlCrearTabla = Querys.queryCreateDB();
                 Statement statement = connection.createStatement();
-                boolean status = statement.execute(sqlCrearTabla);//ejecutando query
+                statement.execute(sqlCrearTabla);//ejecutando query
                 closeDB();
             }
         } catch (SQLException e) {

@@ -5,8 +5,14 @@
  */
 package views;
 
+import db.DatabaseProduct;
 import java.awt.Frame;
+import java.util.UUID;
 import java.util.Vector;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import util.Product;
 
 /**
  *
@@ -18,26 +24,70 @@ public class ProductFrame extends javax.swing.JDialog {
     public final static String OPTION_EDIT = "Borrar";
     public final static String TITLE_ADD = "Agregar Nuevo";
     public final static String TITLE_EDIT = "Editar Producto";
-    
-    private String code= null;
+
+    private String code = null;
 
     public ProductFrame(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
+        fieldCode.setText(UUID.randomUUID().toString());
     }
 
-    public ProductFrame(java.awt.Frame parent, String titleDialog, 
+    public ProductFrame(java.awt.Frame parent, String titleDialog,
             String option, String code) {
         this(parent);
         labelTitle.setText(titleDialog);
         buttonOption.setText(option);
         this.setTitle(titleDialog);
         this.code = code;
+        if(code != null)
+            loadDataToForm();
     }
 
-    public ProductFrame(java.awt.Frame parent,String titleDialog, 
+    public ProductFrame(java.awt.Frame parent, String titleDialog,
             String option) {
         this(parent, titleDialog, option, null);
+    }
+
+    private Product createProducto() {
+        int id = 0;
+        if(code != null){
+            id = Integer.parseInt(code);
+        }
+        
+        return new Product(
+                fieldName.getText(),
+                fieldType.getText(),
+                Integer.parseInt(fieldValue.getText()),
+                fieldCode.getText(),
+                isAvaliable(),
+                Double.parseDouble(fieldPrice.getText()),
+                fieldDescription.getText(),
+                id
+        );
+    }
+
+    private void loadDataToForm() {
+        int id = Integer.parseInt(code);
+
+        Product p = DatabaseProduct.getInstanceDB().get(id);
+
+        fieldName.setText(p.getName());
+        fieldType.setText(p.getType());
+        fieldValue.setText(String.valueOf(p.getCantidad()));
+        fieldCode.setText(p.getCode());
+        comboAvailable.setSelectedIndex(p.getStatus() == 1 ? 0 : 1);
+        fieldPrice.setText(String.valueOf(p.getPrice()));
+        fieldDescription.setText(p.getDescription());
+       
+    }
+
+    private int isAvaliable() {
+        String valor = comboAvailable.getSelectedItem().toString();
+        if (valor.contains("No ")) {
+            return 0;
+        }
+        return 1;
     }
 
     /**
@@ -167,8 +217,18 @@ public class ProductFrame extends javax.swing.JDialog {
 
         buttonAcepted.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         buttonAcepted.setText("Aceptar");
+        buttonAcepted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAceptedActionPerformed(evt);
+            }
+        });
 
         buttonOption.setText("option");
+        buttonOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOptionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,6 +261,35 @@ public class ProductFrame extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonAceptedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAceptedActionPerformed
+
+        if (code == null) {
+            DatabaseProduct.getInstanceDB().insert(createProducto());
+            JOptionPane.showMessageDialog(this, "Se guardo el producto");
+            dispose();
+        } else {
+            DatabaseProduct.getInstanceDB().update(createProducto());
+            JOptionPane.showMessageDialog(this, "Se actualizo el producto");
+            dispose();
+        }
+
+    }//GEN-LAST:event_buttonAceptedActionPerformed
+
+    private void buttonOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOptionActionPerformed
+        JTextField fields[] = {
+            fieldName,
+            fieldCode,
+            fieldPrice,
+            fieldType,
+            fieldValue,};
+
+        for (JTextField txt : fields) {
+            txt.setText("");
+        }
+        fieldDescription.setText("");
+
+    }//GEN-LAST:event_buttonOptionActionPerformed
 
     /**
      * @param args the command line arguments

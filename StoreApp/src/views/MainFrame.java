@@ -6,8 +6,13 @@
 package views;
 
 import db.DatabaseProduct;
+import db.Querys;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.DefaultTableModel;
+import util.Product;
 
 /**
  *
@@ -15,12 +20,12 @@ import javax.swing.filechooser.FileFilter;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
+    private final DatabaseProduct db;
+    
     public MainFrame() {
         initComponents();
-        DatabaseProduct.getInstanceDB();
+        db = DatabaseProduct.getInstanceDB();
+        loadDataToTable();
     }
 
     /**
@@ -66,7 +71,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("jPapeleria");
-        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,9 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,6 +246,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -308,19 +315,65 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadDataToTable(){
+        
+        Vector columns = new Vector();
+        ArrayList<Product> productsDB = db.getAll();
+        
+        for(String s : Querys.COLUMNS){//genero los nombres de columnas
+            if(s.equals(Querys.DESCRIPTION_PRODUCT)){
+                continue;
+            }
+            columns.add(s);
+        }
+        
+        Vector products = new Vector();
+        
+        for(int i =0; i <productsDB.size(); i++){
+            Vector row = new Vector();
+            Product p =  productsDB.get(i);
+            
+            row.add(p.getId());
+            row.add(p.getName());
+            row.add(p.getType());
+            row.add(p.getCantidad());
+            row.add(p.getCode());
+            row.add(p.getStatus());
+            row.add(p.getPrice());
+            
+            products.add(row);
+        }
+        
+        jTable1.setModel(new DefaultTableModel(products, columns));
+        
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new ProductFrame(this, 
                 ProductFrame.TITLE_ADD, ProductFrame.OPTION_ADD).
                 setVisible(true);
+        loadDataToTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         new ProductFrame(this, 
                 ProductFrame.TITLE_EDIT, 
                 ProductFrame.OPTION_EDIT,
-                null).
+                 jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0)
+                               .toString()).
                 setVisible(true);
+        loadDataToTable();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        db.delete(
+                Integer.parseInt(       
+                       jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0)
+                               .toString()
+                )
+        );
+        loadDataToTable();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
