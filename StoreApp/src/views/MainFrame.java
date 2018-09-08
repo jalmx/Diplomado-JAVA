@@ -5,6 +5,7 @@
  */
 package views;
 
+import db.DatabaseProduct;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
@@ -19,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        
+        DatabaseProduct.getInstanceDB();
     }
 
     /**
