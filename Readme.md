@@ -13,6 +13,22 @@
 
 ![Login](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/login.png)
 
+![Main](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/main.png)
+
+![Main 2](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/main_2.png)
+
+![Product 1](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/product_1.png)
+
+![search table](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/search_table.png)
+
+![add msg](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/add_msg.png)
+
+![new msg](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/add_new.png)
+
+![delete msg](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/delete_msg.png)
+
+![edit prod](https://github.com/jalmx/Diplomado-JAVA/blob/master/StoreApp/vistas/edit_prod.png)
+
 
 ___
 ## Bibliografía
