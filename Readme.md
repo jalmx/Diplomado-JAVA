@@ -2,11 +2,10 @@
 
 ## Presentación
 
-[Presentación 1](https://github.com/jalmx/Diplomado-JAVA/blob/master/Presentaci%C3%B3n/Diplomado-JAVA.pdf)
+[Presentación](https://github.com/jalmx/Diplomado-JAVA/blob/master/Presentaci%C3%B3n/Diplomado-JAVA.pdf)
 
 ## Achivos
 
-- [Clase 1](https://github.com/jalmx/Diplomado-JAVA)
 - [Proyecto final](https://github.com/jalmx/Diplomado-JAVA/tree/master/StoreApp)
 
 ## Vistas
