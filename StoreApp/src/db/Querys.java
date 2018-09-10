@@ -113,6 +113,20 @@ public final class Querys {
         );
     }
      
+     public static String queryRead(String busqueda){
+        return String.format(
+                "SELECT * FROM '%s' WHERE %s LIKE \'%%%s%%\' OR %s LIKE \'%%%s%%\' OR %s LIKE \'%%%s%%\'; ",
+                NAME_TABLE,
+                NAME_PRODUCT,
+                busqueda,
+                TYPE_PRODUCT,
+                busqueda,
+                CODE_PRODUCT,
+                busqueda
+                
+        );
+    }
+     
     public static void main(String[] args) {
         System.out.println(queryCreateDB());
         System.out.println(queryDelete("5"));
@@ -143,5 +157,7 @@ public final class Querys {
                 ));
         
         System.out.println(queryRead(1));
+        
+        System.out.println(queryRead("es"));
     }
 }

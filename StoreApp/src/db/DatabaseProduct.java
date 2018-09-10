@@ -85,6 +85,38 @@ public class DatabaseProduct extends DAOHandler<Product> {
         return null;
     }
 
+    public ArrayList<Product> getSearch(String search){
+         ArrayList<Product> products = null;
+        try {
+            if (openConnection()) {
+                products = new ArrayList<>();
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery(Querys.queryRead(search));
+
+                while (rs.next()) {
+                    products.add(new Product(
+                            rs.getString(Querys.COLUMNS[1]),
+                            rs.getString(Querys.COLUMNS[2]),
+                            rs.getInt(Querys.COLUMNS[3]),
+                            rs.getString(Querys.COLUMNS[4]),
+                            rs.getInt(Querys.COLUMNS[5]),
+                            rs.getDouble(Querys.COLUMNS[6]),
+                            rs.getString(Querys.COLUMNS[7]),
+                            rs.getInt(Querys.COLUMNS[0])
+                    )
+                    );
+                }
+                closeDB();
+                return products;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return products;
+    }
+    
     @Override
     public ArrayList<Product> getAll() {
         ArrayList<Product> products = null;
